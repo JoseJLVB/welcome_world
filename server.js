@@ -23,3 +23,17 @@ app.get('/leer', (req, res) => {
     res.send('Archivo leido')
 });
 
+app.get('/renombrar',  async (req, res) => {
+    console.log(req.query);
+    await fs.rename(
+        `archivos/${req.query.nombre}`,
+        `archivos/${req.query.nuevoNombre}`, (error) => {
+        if (error) {
+            throw error;
+        } 
+        });
+    res.write(
+        `Archivo "${req.query.nombre}" renombrado`
+    );
+    res.end();
+});
