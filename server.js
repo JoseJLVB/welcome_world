@@ -37,3 +37,14 @@ app.get('/renombrar',  async (req, res) => {
     );
     res.end();
 });
+
+app.get('/eliminar',  (req, res) => {
+    console.log(req.query);
+    fs.unlink(`archivos/${req.query.archivo}`);
+    res.write(`Archivo "${req.query.archivo}" eliminado`);
+    res.end();
+});
+
+    app.listen(3000, function () {
+    console.log('Servidor andando en el puerto 3000');
+});
