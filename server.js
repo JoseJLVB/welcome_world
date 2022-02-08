@@ -16,11 +16,10 @@ app.get('/crear',  (req, res) => {
     res.send('Archivo creado')
 });
 
-app.get('/leer', (req, res) => {
+app.get('/leer', async (req, res) => {
     console.log(req.query);
-    fs.readFile(`archivos/${req.query.archivo}`, 
-    );
-    res.send('Archivo leido')
+    const datos = await fs.readFile(`archivos/${req.query.archivo}`, 'utf-8');
+    res.send(`Archivo ${req.query.archivo}, leído. El contenido es: ${datos}`);
 });
 
 app.get('/renombrar',  async (req, res) => {
@@ -33,7 +32,7 @@ app.get('/renombrar',  async (req, res) => {
         } 
         });
     res.write(
-        `Archivo "${req.query.nombre}" renombrado`
+        `Archivo "${req.query.nombre}" renombrado a "${req.query.nuevoNombre}"`
     );
     res.end();
 });
